@@ -1,32 +1,36 @@
-package com.edsonrego.library.entities;
+package com.edsonrego.library.dto;
 
-import jakarta.persistence.*;
+import com.edsonrego.library.entities.Book;
 
 import java.io.Serializable;
-import java.util.Objects;
 
-@Entity
-@Table(name = "tb_book")
-public class Book implements Serializable {
+public class BookDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private String title;
     private String author;
     private String country;
     private Integer year;
 
-    public Book() {
+    public BookDTO() {
     }
 
-    public Book(Long id, String title, String author, String country, Integer year) {
+    public BookDTO(Long id, String title, String author, String country, Integer year) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.country = country;
         this.year = year;
+    }
+
+    public BookDTO(Book entity) {
+        id = entity.getId();
+        title = entity.getTitle();
+        author = entity.getAuthor();
+        country = entity.getCountry();
+        year = entity.getYear();
     }
 
     public Long getId() {
@@ -67,28 +71,5 @@ public class Book implements Serializable {
 
     public void setYear(Integer year) {
         this.year = year;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", country='" + country + '\'' +
-                ", year=" + year +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Book book)) return false;
-        return Objects.equals(getId(), book.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
     }
 }
